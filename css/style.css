@@ -1,0 +1,116 @@
+#panel{
+   max-width:350px;
+}
+
+#deck{
+    background-color: rgba(218,65,103,1);;
+    max-width: 780px;
+    margin:auto;
+    padding:50px 20px;
+    min-height: 700px;
+    box-shadow: 12px 15px 10px 0 rgb(46 61 73 / 50%);
+}
+
+.card{
+    width: 22.5%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    font-size: 0;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 0 rgb(46 61 73 / 50%);
+}
+
+.open{
+    background-color: rgba(36,47,96,1);
+    cursor: default;
+    font-size: 5rem;
+    color:white;
+}
+
+.match{
+    cursor: default;
+    background-color: #9be38e;
+    font-size: 5rem;
+}
+
+.final-msg {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+.final-msg:target {
+	visibility: visible;
+	opacity: 1;
+}
+.end-message {
+	margin: 70px auto;
+	padding: 20px;
+	background: #ffffff;
+	border-radius: 5px;
+	width: 85%;
+	position: relative;
+	transition: all 5s ease-in-out;
+}
+  
+.end-message h2 {
+	margin-top: 0;
+	color: #333;
+	text-align: center;
+}
+
+.end-message .content-1,
+.content-2 {
+	max-height: 30%;
+	overflow: auto;
+	text-align: center;
+}
+
+.show {
+	visibility: visible !important;
+	opacity: 100 !important;
+}
+#heartRating li {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     
+}
+
+#play-again {
+	background-color: #141214;
+	padding: 0.7rem 1rem;
+	font-size: 1.1rem;
+	display: block;
+	margin: 0 auto;
+	width: 50%;
+	color: #ffffff;
+	border-radius: 5px;
+}
+
+@media(max-width:780px){
+    .card{
+        width:20.5%;
+        height: 125px;
+    }
+}
+
+@media(max-width:340px){
+    #deck{
+        padding:10px;
+        
+    }
+    .card{
+        width: 18%;
+    }
+}
