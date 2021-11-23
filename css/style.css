@@ -48,10 +48,7 @@
 	visibility: hidden;
 	opacity: 0;
 }
-.final-msg:target {
-	visibility: visible;
-	opacity: 1;
-}
+
 .end-message {
 	margin: 70px auto;
 	padding: 20px;
@@ -73,19 +70,20 @@
 	max-height: 30%;
 	overflow: auto;
 	text-align: center;
+    font-size:20px ;
 }
 
 .show {
 	visibility: visible !important;
 	opacity: 100 !important;
 }
-#heartRating li {
+#heartRating {
     list-style-type: none;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
+    display: flex;
      
 }
+
 
 #play-again {
 	background-color: #141214;

@@ -4,18 +4,30 @@ let sec = 0;
 let moveCounter = 0;
 let heartCounter = 3;
 let stopTime = true;
-let clickedCard = [];
+let clickedCards = [];
 let matchCards = [];
 
-let cards = document.querySelectorAll(".card");
+const cards = document.querySelectorAll(".card");
+const deck = document.querySelector("#deck");
+let cardsArray = Array.from(cards);
 const timer = document.querySelector("#timer");
 const restart = document.querySelector("#restart");
 const moves = document.querySelector("#moves");
-const hearstList = document.querySelector("#heart");
+const heartsList = document.querySelector("#heart");
 const endGame = document.querySelector("#endGame");
 const againButton = document.querySelector("#play-again");
 
 //---------------------------------functions
+
+// this function to called the shuffle 
+initCardShuffle();
+function initCardShuffle(){
+  let cardsAfterShuffle = shuffle(cardsArray);
+  for(const card of cardsAfterShuffle){
+    deck.appendChild(card);
+  }
+  
+}
 
 //this function start the timer
 function initTime() {
@@ -39,28 +51,27 @@ function initTime() {
 
 //this function open the card
 function openCard(card) {
-  let isMatcheCard = matchCards.includes(card);
+  let isMatchedCard = matchCards.includes(card);
 
-  if (clickedCard.length == 0 && !isMatcheCard) {
+  if (clickedCards.length == 0 && !isMatchedCard) {
     card.classList.add("open");
-    clickedCard.push(card);
-    // increase move
-    movment();
-  } else if (clickedCard.length == 1 && !isMatcheCard) {
-    if (!card.isSameNode(clickedCard[0])) {
+    clickedCards.push(card);
+
+  } else if (clickedCards.length == 1 && !isMatchedCard) {
+    if (!card.isSameNode(clickedCards[0])) {
       card.classList.add("open");
-      clickedCard.push(card);
+      clickedCards.push(card);
       // increase move
       movment();
     }
   }
 
   // check if the card match or not
-  if (clickedCard.length == 2) {
+  if (clickedCards.length == 2) {
     //match
     if (
-      clickedCard[0].children[0].className ==
-      clickedCard[1].children[0].className
+      clickedCards[0].children[0].className ==
+      clickedCards[1].children[0].className
     ) {
       match();
     } // not match
@@ -72,19 +83,19 @@ function openCard(card) {
 
 //this function to handle not match cards
 function notMatch() {
-  for (const element of clickedCard) {
+  for (const element of clickedCards) {
     element.classList.remove("open");
   }
-  clickedCard = [];
+  clickedCards = [];
 }
 
 //this function to handle match cards
 function match() {
-  for (const element of clickedCard) {
+  for (const element of clickedCards) {
     element.classList.add("match");
     matchCards.push(element);
   }
-  clickedCard = [];
+  clickedCards = [];
   //all the cards are match 
   if (matchCards.length == 16) {
     
@@ -94,7 +105,7 @@ function match() {
     endGame.classList.add("show");
     //show move, rate, time
     document.getElementById("finalMove").innerHTML = moveCounter;
-    document.getElementById("heartRating").innerHTML = "Rating:" +hearstList.innerHTML;
+    document.getElementById("heartRating").innerHTML = "Rating:  &nbsp" +heartsList.innerHTML;
     document.getElementById("totalTime").innerHTML = timer.innerHTML;
   }
 }
@@ -106,7 +117,7 @@ function movment() {
 
   // remove one heart
   if (moveCounter == 16 || moveCounter == 24) {
-    hearstList.children[heartCounter - 1].style.display = "none";
+    heartsList.children[heartCounter - 1].style.display = "none";
     heartCounter--;
   }
 }
@@ -119,17 +130,19 @@ function restartGame() {
   moveCounter = 0;
   moves.innerHTML = moveCounter + " moves";
   matchCards = [];
-  clickedCard = [];
+  clickedCards = [];
   heartCounter = 3;
   // return all hearts
-  for (let i = 0; i < hearstList.childElementCount; i++) {
-    hearstList.children[i].style.display = "inline";
+  for (let i = 0; i < heartsList.childElementCount; i++) {
+    heartsList.children[i].style.display = "inline";
   }
   // return the cards
   for (const element of cards) {
     element.classList.remove("open");
     element.classList.remove("match");
   }
+  // shuffle 
+  initCardShuffle();
 }
 
 //this function shuffle the cards
@@ -150,7 +163,6 @@ function shuffle(array) {
 }
 
 //---------------------------------event listeners
-cards = shuffle(cards);
 
 for (let i = 0; i < cards.length; i++) {
   cards[i].addEventListener("click", function () {
